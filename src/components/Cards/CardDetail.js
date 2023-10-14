@@ -8,6 +8,7 @@ import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
 
+
 const CardDetail = () => {
     let { id } = useParams();
     const dispatch = useDispatch();
@@ -34,7 +35,7 @@ const CardDetail = () => {
 
         <Card
             title={item.data.title}
-            text={item.data.selftext_html}
+            text={item.data.selftext}
             thumbnail={item.data.thumbnail}
             author={item.data.author}
             created={item.data.created}

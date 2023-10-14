@@ -9,6 +9,7 @@ export const loadPost = createAsyncThunk(
     }
 );
 
+
 export const cardDetailSlice = createSlice({
     name: 'cardDetail',
     initialState: {

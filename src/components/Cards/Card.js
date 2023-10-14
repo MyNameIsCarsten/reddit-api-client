@@ -10,6 +10,11 @@ import { useParams } from 'react-router-dom';
 import ArrowCircleUpIcon from '@mui/icons-material/ArrowCircleUp';
 import ArrowCircleDownIcon from '@mui/icons-material/ArrowCircleDown';
 import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
+import ReactMarkdown from 'react-markdown'
+import gfm from 'remark-gfm';
+import rehypeRaw from 'rehype-raw';
+import MarkdownTest from './MarkdownTest';
+
 
 export default function MediaCard({ title, text, thumbnail, author, created, ups, down, id, subreddit, comments, media }) {
     //let { id } = useParams();
@@ -51,7 +56,8 @@ export default function MediaCard({ title, text, thumbnail, author, created, ups
   const elapsedString = getTimeElapsedString(created);
   const decodedText = new DOMParser().parseFromString(text, 'text/html').body.textContent;
   const cleanedText = decodedText.replace(/<!-- SC_OFF -->|<!-- SC_ON -->/g, '');
- 
+  
+  console.log(text)
 
     return (
       <div
@@ -101,6 +107,8 @@ export default function MediaCard({ title, text, thumbnail, author, created, ups
             ) : (
               ""
               )}
+              <br></br>
+              <MarkdownTest text={text}/>
             <div style={{ display:'flex', justifyContent: 'space-around', marginTop: 10 }}>
               <Typography style={{ fontSize: 10 }}>
                 Posted by: <strong>{author}</strong>

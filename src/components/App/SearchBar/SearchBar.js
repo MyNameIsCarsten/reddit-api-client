@@ -9,6 +9,9 @@ import InputBase from '@mui/material/InputBase';
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import { Link } from 'react-router-dom';
+import { useState } from 'react'; // Import useState
+import { useDispatch, useSelector } from 'react-redux';
+import { addSearchTerm } from '../SearchBar/searchBarSlice';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -53,6 +56,14 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function SearchAppBar() {
+  const searchTerm = useSelector((state) => state.searchTerm.searchTerm); // Retrieve search term from Redux store
+  const dispatch = useDispatch(); // Get the dispatch function
+
+  // Event handler to update the search term as the user types
+  const handleSearchChange = (event) => {
+    dispatch(addSearchTerm(event.target.value));
+  };
+  
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static" sx={{ backgroundColor: '#0D1117' }}>
@@ -85,6 +96,8 @@ export default function SearchAppBar() {
             <StyledInputBase
               placeholder="Search…"
               inputProps={{ 'aria-label': 'search' }}
+              value={searchTerm} // Bind input value to the searchTerm state
+              onChange={handleSearchChange} // Add onChange event handler
             />
           </Search>
         </Toolbar>
