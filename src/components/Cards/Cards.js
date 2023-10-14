@@ -26,6 +26,7 @@ const Cards = () => {
                     id={item.data.id}
                 key={item.data.id}
                 comments={item.data.num_comments}
+                media={item.data.media}
                 />))}
       </div>
     );

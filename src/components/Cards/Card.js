@@ -11,7 +11,7 @@ import ArrowCircleUpIcon from '@mui/icons-material/ArrowCircleUp';
 import ArrowCircleDownIcon from '@mui/icons-material/ArrowCircleDown';
 import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
 
-export default function MediaCard({ title, text, thumbnail, author, created, ups, down, id, subreddit, comments }) {
+export default function MediaCard({ title, text, thumbnail, author, created, ups, down, id, subreddit, comments, media }) {
     //let { id } = useParams();
 
     function getTimeElapsedString(timestamp) {
@@ -51,7 +51,7 @@ export default function MediaCard({ title, text, thumbnail, author, created, ups
   const elapsedString = getTimeElapsedString(created);
   const decodedText = new DOMParser().parseFromString(text, 'text/html').body.textContent;
   const cleanedText = decodedText.replace(/<!-- SC_OFF -->|<!-- SC_ON -->/g, '');
-  
+ 
 
     return (
       <div
@@ -115,6 +115,8 @@ export default function MediaCard({ title, text, thumbnail, author, created, ups
               <Typography>
                 <div style={{ lineBreak: 'anywhere' }}>
                   Thumbnail: {thumbnail}
+                  <br></br>
+                  {media ? `Media: ${Object.keys(media)}`:''}
                 </div> 
               </Typography>
           </CardContent>
