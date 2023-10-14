@@ -9,8 +9,9 @@ import { Link } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import ArrowCircleUpIcon from '@mui/icons-material/ArrowCircleUp';
 import ArrowCircleDownIcon from '@mui/icons-material/ArrowCircleDown';
+import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
 
-export default function MediaCard({ title, text, thumbnail, author, created, ups, down, id, subreddit }) {
+export default function MediaCard({ title, text, thumbnail, author, created, ups, down, id, subreddit, comments }) {
     //let { id } = useParams();
 
     function getTimeElapsedString(timestamp) {
@@ -47,51 +48,83 @@ export default function MediaCard({ title, text, thumbnail, author, created, ups
         }
     }
     
-    const elapsedString = getTimeElapsedString(created);
+  const elapsedString = getTimeElapsedString(created);
+  const decodedText = new DOMParser().parseFromString(text, 'text/html').body.textContent;
+  const cleanedText = decodedText.replace(/<!-- SC_OFF -->|<!-- SC_ON -->/g, '');
+  
 
     return (
-        <div className="App" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', marginTop: '10px' }}>
-            <Card sx={{ width: 345 }}>
-                {thumbnail !== 'self' && thumbnail !== 'default' && thumbnail !== 'nsfw' && !thumbnail.includes('external') ? <CardMedia
-                    sx={{ height: 140 }}
-                    image={thumbnail}
-                    title={title}
-                /> : ''}
-                
-                <CardContent>
-                    <Typography gutterBottom variant="h5" component="div">
-                    {title}
-                    </Typography>
-            {id && text ?
-              <Typography variant="body2" color="text.secondary">
-                    {text}
-              </Typography>
-              : ''}
-                    <Typography>
-                        Posted by: <strong>{author}</strong>
-                    </Typography>
-                    <Typography>
-                        Posted <strong>{elapsedString}</strong>
-                    </Typography>
-                    <Typography>
-                        Thumbnail {thumbnail}
+      <div
+        className="App"
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          marginTop: "10px",
+        }}
+      >
+        <Card
+          sx={{ width: 500 }}
+          style={{ display: "flex", alignItems: "center" }}
+        >
+          
+
+          <div>
+            <Typography style={{ display: "flex" }}>
+              <ArrowCircleUpIcon />
+              {ups}
             </Typography>
 
-            <Typography style={{ display:'flex'}}>
-                        <ArrowCircleUpIcon />{ups}
-                    </Typography>
+            <Typography style={{ display: "flex" }}>
+              <ArrowCircleDownIcon />
+              {down}
+            </Typography>
+          </div>
 
-                    
-                    <Typography style={{ display:'flex'}}>
-                        <ArrowCircleDownIcon />{down}
-                    </Typography>
-                </CardContent>
-                <CardActions>
-                    <Link to={ `card/${id}` } >
-                        <Button size="small">Learn More</Button>
-                    </Link>
-                </CardActions>
-            </Card>
-        </div>
-  );
+          <div  id='content' style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+          <CardContent>
+            <Typography style={{ textAlign: 'center' }} gutterBottom variant="h5" component="div">
+              {title}
+              </Typography>
+              {thumbnail !== "self" &&
+          thumbnail !== "default" &&
+          thumbnail !== "nsfw" &&
+          !thumbnail.includes("external") ? (
+            <CardMedia sx={{ height: 140 }} image={thumbnail} title={title} />
+          ) : (
+            ""
+          )}
+
+            {id && text ? (
+              <Typography variant="body2" color="text.secondary" dangerouslySetInnerHTML={{ __html: `${cleanedText}` }} style={{ lineBreak: 'anywhere' }} />
+            ) : (
+              ""
+              )}
+            <div style={{ display:'flex', justifyContent: 'space-around', marginTop: 10 }}>
+              <Typography style={{ fontSize: 10 }}>
+                Posted by: <strong>{author}</strong>
+              </Typography>
+              <Typography style={{ fontSize: 10 }}>
+                Posted <strong>{elapsedString}</strong>
+                </Typography>
+              <Typography style={{ display:'flex', fontSize: 10 }}>
+                <ChatBubbleOutlineIcon /><strong>{comments}</strong>
+              </Typography>
+            </div>
+              <Typography>
+                <div style={{ lineBreak: 'anywhere' }}>
+                  Thumbnail: {thumbnail}
+                </div> 
+              </Typography>
+          </CardContent>
+          <CardActions>
+            <Link to={`card/${id}`}>
+              <Button size="small">Learn More</Button>
+            </Link>
+            </CardActions>
+          </div>
+        </Card>
+      </div>
+    );
 }

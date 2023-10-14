@@ -18,14 +18,14 @@ const Cards = () => {
             {content.map((item) => (
                 <Card
                     title={item.data.title}
-
                     thumbnail={item.data.thumbnail}
                     author={item.data.author}
                     created={item.data.created}
                     ups={item.data.ups}
                     down={item.data.downs}
                     id={item.data.id}
-                    key={item.data.id}
+                key={item.data.id}
+                comments={item.data.num_comments}
                 />))}
       </div>
     );

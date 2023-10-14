@@ -34,7 +34,7 @@ const CardDetail = () => {
 
         <Card
             title={item.data.title}
-            text={item.data.selftext}
+            text={item.data.selftext_html}
             thumbnail={item.data.thumbnail}
             author={item.data.author}
             created={item.data.created}
@@ -43,6 +43,7 @@ const CardDetail = () => {
             id={item.data.id}
             key={item.data.id}
             subreddit={item.data.subreddit}
+            comments={item.data.num_comments}
         />)
 
     };
