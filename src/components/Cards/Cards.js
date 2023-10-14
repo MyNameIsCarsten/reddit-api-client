@@ -18,7 +18,7 @@ const Cards = () => {
             {content.map((item) => (
                 <Card
                     title={item.data.title}
-                    text={item.data.selftext}
+
                     thumbnail={item.data.thumbnail}
                     author={item.data.author}
                     created={item.data.created}

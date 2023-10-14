@@ -62,9 +62,11 @@ export default function MediaCard({ title, text, thumbnail, author, created, ups
                     <Typography gutterBottom variant="h5" component="div">
                     {title}
                     </Typography>
-                    {id ? <Typography variant="body2" color="text.secondary">
+            {id && text ?
+              <Typography variant="body2" color="text.secondary">
                     {text}
-                    </Typography> : ''}
+              </Typography>
+              : ''}
                     <Typography>
                         Posted by: <strong>{author}</strong>
                     </Typography>
@@ -76,12 +78,12 @@ export default function MediaCard({ title, text, thumbnail, author, created, ups
             </Typography>
 
             <Typography style={{ display:'flex'}}>
-                        Upvotes: <ArrowCircleUpIcon />{ups}
+                        <ArrowCircleUpIcon />{ups}
                     </Typography>
 
                     
                     <Typography style={{ display:'flex'}}>
-                        Downvotes: <ArrowCircleDownIcon />{down}
+                        <ArrowCircleDownIcon />{down}
                     </Typography>
                 </CardContent>
                 <CardActions>
