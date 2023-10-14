@@ -12,6 +12,7 @@ import { Link } from 'react-router-dom';
 import { useState } from 'react'; // Import useState
 import { useDispatch, useSelector } from 'react-redux';
 import { addSearchTerm } from '../SearchBar/searchBarSlice';
+import { updatePost } from '../../Cards/cardsSlice';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -63,6 +64,11 @@ export default function SearchAppBar() {
   const handleSearchChange = (event) => {
     dispatch(addSearchTerm(event.target.value));
   };
+
+  const handleSearchSubmit = () => {
+    // Trigger the data fetching action based on the search term
+    dispatch(updatePost(searchTerm));
+  };
   
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -99,6 +105,7 @@ export default function SearchAppBar() {
               value={searchTerm} // Bind input value to the searchTerm state
               onChange={handleSearchChange} // Add onChange event handler
             />
+            <button onClick={handleSearchSubmit}>Search</button>
           </Search>
         </Toolbar>
       </AppBar>

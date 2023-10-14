@@ -31,7 +31,7 @@ export const cardDetailSlice = createSlice({
             state.isLoading = false;
             state.hasError = false;
             state.content = action.payload
-        },
+        }
     }
 });
 

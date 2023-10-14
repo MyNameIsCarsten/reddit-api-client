@@ -5,7 +5,9 @@ import { selectContent } from './cardsSlice';
 
 
 const Cards = () => {
-    const content = useSelector(selectContent);
+  const content = useSelector(selectContent);
+  const searchTerm = useSelector((state) => state.searchTerm.searchTerm);
+  const searched = useSelector((state) => state.content.searched);
     console.log(content)
   
     // Check if content is defined and it has the 'children' array
@@ -15,6 +17,7 @@ const Cards = () => {
   
     return (
       <div>
+        <h2 style={{textAlign: 'center', marginTop: 1cd}}>{searched ? `Your search for ${searchTerm}:` : 'Popular Posts:'}</h2>
             {content.map((item) => (
                 <Card
                     title={item.data.title}

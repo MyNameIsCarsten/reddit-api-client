@@ -6,25 +6,25 @@ import { loadPost } from './cardDetailsSlice';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
+import { updatePost } from './cardsSlice';
 
 
 
 const CardDetail = () => {
     let { id } = useParams();
     const dispatch = useDispatch();
+    const searchTerm = useSelector((state) => state.searchTerm.searchTerm); // Get the search term from Redux store
 
-    useEffect(() => {
-        // Dispatch the action to load content when the component mounts
-        dispatch(loadPost());
-    }, [dispatch]);
-
+    // Fetch data based on the search term
+  useEffect(() => {
+    if (searchTerm) {
+      dispatch(updatePost(searchTerm));
+    }
+  }, [dispatch, searchTerm]);
 
     const item = useSelector(selectPost).filter(i => i.data.id === id)[0]
 
-    
-  
     const isLoading = useSelector(selectIsLoading);
-    console.log('isLoading:', isLoading)
     
     if (isLoading ) {
         return <p>Loading</p>

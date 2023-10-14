@@ -56,8 +56,7 @@ export default function MediaCard({ title, text, thumbnail, author, created, ups
   const elapsedString = getTimeElapsedString(created);
   const decodedText = new DOMParser().parseFromString(text, 'text/html').body.textContent;
   const cleanedText = decodedText.replace(/<!-- SC_OFF -->|<!-- SC_ON -->/g, '');
-  
-  console.log(text)
+
 
     return (
       <div
