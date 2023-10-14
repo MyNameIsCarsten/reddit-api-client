@@ -64,8 +64,8 @@ export default function SearchAppBar() {
             aria-label="open drawer"
             sx={{ mr: 2 }}
           >
-            <MenuIcon />
-                  </IconButton>
+            
+          </IconButton>
 
                
           <Typography

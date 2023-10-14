@@ -7,6 +7,8 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { Link } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
+import ArrowCircleUpIcon from '@mui/icons-material/ArrowCircleUp';
+import ArrowCircleDownIcon from '@mui/icons-material/ArrowCircleDown';
 
 export default function MediaCard({ title, text, thumbnail, author, created, ups, down, id, subreddit }) {
     //let { id } = useParams();
@@ -64,19 +66,22 @@ export default function MediaCard({ title, text, thumbnail, author, created, ups
                     {text}
                     </Typography> : ''}
                     <Typography>
-                        Posted by: {author}
+                        Posted by: <strong>{author}</strong>
                     </Typography>
                     <Typography>
-                        Posted {elapsedString}
+                        Posted <strong>{elapsedString}</strong>
                     </Typography>
                     <Typography>
                         Thumbnail {thumbnail}
+            </Typography>
+
+            <Typography style={{ display:'flex'}}>
+                        Upvotes: <ArrowCircleUpIcon />{ups}
                     </Typography>
-                    <Typography>
-                        Upvotes: {ups}
-                    </Typography>
-                    <Typography>
-                        Downvotes: {down}
+
+                    
+                    <Typography style={{ display:'flex'}}>
+                        Downvotes: <ArrowCircleDownIcon />{down}
                     </Typography>
                 </CardContent>
                 <CardActions>
