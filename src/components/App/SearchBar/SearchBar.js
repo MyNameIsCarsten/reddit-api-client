@@ -12,7 +12,7 @@ import { Link } from 'react-router-dom';
 import { useState } from 'react'; // Import useState
 import { useDispatch, useSelector } from 'react-redux';
 import { addSearchTerm } from '../SearchBar/searchBarSlice';
-import { updatePost } from '../../Cards/cardsSlice';
+import { updatePost } from '../Cards/cardsSlice';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',

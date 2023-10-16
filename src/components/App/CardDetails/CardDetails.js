@@ -2,7 +2,7 @@
 import React from 'react'
 
 // Component imports
-import Card from './Card';
+import Card from '../Card/Card';
 
 // Hook imports
 import { useSelector } from 'react-redux';
@@ -11,18 +11,21 @@ import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
 // Action import
-import { updatePost } from './cardsSlice';
+import { updatePost } from '../Cards/cardsSlice';
 
 
-const CardDetail = () => {
+const CardDetails = () => {
   const dispatch = useDispatch();
   const searchTerm = useSelector((state) => state.searchTerm.searchTerm); // Get the search term from Redux store
-  const posts = useSelector((state) => state.content.content); // Get the search term from Redux store
+  
   const isLoading = useSelector((state) => state.content.isLoading);
 
   // Grab Id from url
   let { id } = useParams();
+  const posts = useSelector((state) => state.content.content); // Get the search term from Redux store
   const item = posts.filter(i => i.data.id === id)[0]
+  console.log('Item:', item)
+
 
   // Fetch data based on the search term
   useEffect(() => {
@@ -38,6 +41,7 @@ const CardDetail = () => {
   } else {
   return (
     <Card
+        cardType={'detail'}
         title={item.data.title}
         text={item.data.selftext}
         thumbnail={item.data.thumbnail}
@@ -49,11 +53,13 @@ const CardDetail = () => {
         key={item.data.id}
         subreddit={item.data.subreddit}
         comments={item.data.num_comments}
-        media={item.data.media}
+      media={item.data.media}
+      post_hint={item.data.post_hint}
+        preview={item.data.preview ? item.data.preview : ''}
     />)
 
   };
 }
 
-export default CardDetail
+export default CardDetails
 

@@ -11,7 +11,7 @@ import './applayout.css'
 
 const AppLayout = () => {
   return (
-    <div id='applayout'>
+    <div id='applayout' style={{ backgroundColor: '#030303', color: 'white'}}>
       < SearchAppBar />
      
           < Outlet />
