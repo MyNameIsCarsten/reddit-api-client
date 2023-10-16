@@ -19,11 +19,11 @@ const CardDetail = () => {
   const searchTerm = useSelector((state) => state.searchTerm.searchTerm); // Get the search term from Redux store
   const posts = useSelector((state) => state.content.content); // Get the search term from Redux store
   const isLoading = useSelector((state) => state.content.isLoading);
-  const item = posts.filter(i => i.data.id === id)[0]
 
   // Grab Id from url
   let { id } = useParams();
-  
+  const item = posts.filter(i => i.data.id === id)[0]
+
   // Fetch data based on the search term
   useEffect(() => {
     if (searchTerm) {
