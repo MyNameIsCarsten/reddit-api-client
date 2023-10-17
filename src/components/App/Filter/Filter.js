@@ -14,13 +14,15 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 
 //Action imports
-import { changeSorting, authorFilter } from './filterSlice';
+import { changeSorting, authorFilter, typeFilter } from './filterSlice';
 
 const Filter = () => {
     const [selectedSort, setSelectedSort] = useState('Ascending');
     let sort = '';
-    const [authors, setAuthors] = useState([]);
-    const [selectedAuthor, setSelectedAuthor] = useState([]);
+  const [authors, setAuthors] = useState([]);
+  const [types, setTypes] = useState([]);
+  const [selectedAuthor, setSelectedAuthor] = useState([]);
+  const [selectedType, setSelectedType] = useState([]);
     const content = useSelector((state) => state.content.content)
     
     useEffect(() => {
@@ -28,6 +30,9 @@ const Filter = () => {
           const authors = content.map((item) => item.data.author);
           const uniqueAuthors = [...new Set(authors)]; // Remove duplicates
           setAuthors(uniqueAuthors);
+          const types = content.map((item) => item.data.post_hint);
+          const uniqueTypes = [...new Set(types)]; // Remove duplicates
+          setTypes(uniqueTypes);
         }
       }, [content]);
     
@@ -41,12 +46,17 @@ const Filter = () => {
     const handleChangeAuthor = (event) => {
         dispatch(authorFilter(event.target.value));
         setSelectedAuthor(event.target.value);
-    };
+  };
+  
+  const handleChangeType = (event) => {
+    dispatch(typeFilter(event.target.value));
+    setSelectedType(event.target.value);
+};
     
     return (
         <>
             <h2 style={{ textAlign: 'center', marginTop: 10 }}>Filters:</h2>
-            <div style={{ display: 'flex' }}>
+            <div style={{ display: 'flex', maxWidth: 700, margin: 'auto' }}>
         <Box sx={{ minWidth: 120, maxWidth: 200, display: 'flex', margin: '20px auto', backgroundColor: '#1A1A1B', borderRadius: 1 }}>
           <FormControl fullWidth>
             <InputLabel id="demo-simple-select-label" sx={{color:'#C0C3C5'}}>Sort</InputLabel>
@@ -79,6 +89,25 @@ const Filter = () => {
                     >
                 <MenuItem value=''>All Authors</MenuItem>
                 {authors.map(a =><MenuItem value={a}>{a}</MenuItem>)}
+            </Select>
+            </FormControl>
+          </Box>
+          
+        
+          <Box sx={{ minWidth: 120, maxWidth: 200, display: 'flex', margin: '20px auto', backgroundColor: '#1A1A1B', borderRadius: 1 }}>
+            <FormControl fullWidth>
+            <InputLabel id="demo-simple-select-label" sx={{color:'#C0C3C5'}}>Types</InputLabel>
+            <Select
+                labelId="demo-simple-select-label"
+                id="type-simple-select"
+                value={selectedType}
+                label="Author"
+                onChange={handleChangeType}
+                defaultValue={''}
+                style={{color:'#C0C3C5'}}
+                    >
+                <MenuItem value=''>All Types</MenuItem>
+                {types.map(a =><MenuItem value={a}>{a}</MenuItem>)}
             </Select>
             </FormControl>
                 </Box>

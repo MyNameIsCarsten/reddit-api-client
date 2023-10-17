@@ -16,3 +16,7 @@ p {
   color: #C0C3C5 !important;
   line-break: auto !important;
 }
+
+a {
+  line-break: anywhere !important;
+}

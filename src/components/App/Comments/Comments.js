@@ -17,10 +17,8 @@ import ArrowCircleDownIcon from '@mui/icons-material/ArrowCircleDown';
 const Comments = () => {
   const commentArray = useSelector((state) => state.post.content.comments)
   const commentsLoaded = useSelector((state) => state.post.isLoading)
-  console.log('commentArray:', commentArray)
   
     const convertToHtml = (str) => {
-      console.log(str)
       try{
         return str
           .replace(/&lt;/g, '<')
@@ -29,7 +27,7 @@ const Comments = () => {
           .replace(/&amp;/g, '&');
       }
       catch (error) {
-        console.log(error)
+        // console.log(error)
       }
     };
   

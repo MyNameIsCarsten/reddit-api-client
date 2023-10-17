@@ -23,6 +23,9 @@ import { loadPostData } from '../CardDetails/cardSlice';
 // import functions
 import { getTimeElapsedString } from '../../../utils/utilities';
 
+// import css
+import './card.css';
+
 export default function MediaCard({ title, text, thumbnail, author, created, ups, down, id, subreddit, comments, media, preview, cardType, post_hint }) {
   const dispatch = useDispatch();
   let url = '';
@@ -39,9 +42,7 @@ export default function MediaCard({ title, text, thumbnail, author, created, ups
     // console.log(error)
   }
   const post = useSelector((state) => state.post)
- 
-
-  
+   
   if (cardType !== 'list' && Object.keys(post.content.post).length > 0) {
     url = post.content.post[0].data.url
     if (url.includes('reddit') && 'media_metadata' in post.content.post[0].data) {
@@ -51,7 +52,13 @@ export default function MediaCard({ title, text, thumbnail, author, created, ups
     }
   }
 
-  if (cardType !== 'list' && post_hint === 'hosted:video'  && Object.keys(post.content.post).length > 0) {
+  if (Object.keys(post.content.post).length > 0 && 'is_video' in post.content.post[0].data && post.content.post[0].data.is_video) {
+    if ('media' in post.content.post[0].data) {
+      videoUrl = post.content.post[0].data.media.reddit_video.fallback_url
+    }
+  }
+
+  if (cardType !== 'list' && post_hint === 'hosted:video'  && Object.keys(post.content.post).length > 0 && 'reddit_video' in post.content.post[0].data) {
     videoUrl = post.content.post[0].data.secure_media.reddit_video.fallback_url
   }
    
@@ -111,11 +118,11 @@ export default function MediaCard({ title, text, thumbnail, author, created, ups
       >
   
       <Card
-        sx={{ width: 700 }}
+        sx={{ width: '80%' }}
         style={{ display: "flex", alignItems: "center", backgroundColor: '#1A1A1B', color: '#C0C3C5' }}
       >
           
-      <div style={{ minWidth: 80, display: 'flex', flexDirection: 'column', alignItems: 'center', backgroundColor: '#1A1A1B' }}>
+      <div style={{ minWidth: 70, display: 'flex', flexDirection: 'column', alignItems: 'center', backgroundColor: '#1A1A1B' }}>
         <Typography style={{ display: "flex" }}>
           <ArrowCircleUpIcon />
    
@@ -129,7 +136,7 @@ export default function MediaCard({ title, text, thumbnail, author, created, ups
           
   
           <div id='content' style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', margin: 'auto', backgroundColor: '#1A1A1B' }}>
-          <div style={{ display:'flex', justifyContent: 'space-around', marginTop: 10, backgroundColor: '#1A1A1B' }}>
+          <div  class='cardsTop'  style={{ display:'flex', justifyContent: 'space-around', marginTop: 10, backgroundColor: '#1A1A1B' }}>
             <Typography style={{ fontSize: 10 }}>
                 Posted by:
                 <Link to={`https://www.reddit.com/user/${author}`}>
@@ -197,11 +204,11 @@ export default function MediaCard({ title, text, thumbnail, author, created, ups
       >
   
       <Card
-        sx={{ width: 700 }}
+        sx={{ width: '80%' }}
         style={{ display: "flex", alignItems: "center", backgroundColor: '#1A1A1B', color: '#C0C3C5' }}
       >
           
-      <div style={{ minWidth: 80, display: 'flex', flexDirection: 'column', alignItems: 'center', backgroundColor: '#1A1A1B' }}>
+      <div style={{ minWidth: 70, display: 'flex', flexDirection: 'column', alignItems: 'center', backgroundColor: '#1A1A1B' }}>
         <Typography style={{ display: "flex" }}>
           <ArrowCircleUpIcon />
         </Typography>
@@ -214,7 +221,7 @@ export default function MediaCard({ title, text, thumbnail, author, created, ups
           
   
           <div id='content' style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', margin: 'auto', backgroundColor: '#1A1A1B' }}>
-          <div style={{ display:'flex', justifyContent: 'space-around', marginTop: 10, backgroundColor: '#1A1A1B' }}>
+          <div  class='cardsTop'   style={{ display:'flex', justifyContent: 'space-around', marginTop: 10, backgroundColor: '#1A1A1B', alignItems: 'center' }}>
             <Typography style={{ fontSize: 10 }}>
                 Posted by:
                 <Link to={`https://www.reddit.com/user/${author}`}>
@@ -224,7 +231,7 @@ export default function MediaCard({ title, text, thumbnail, author, created, ups
             <Typography style={{ fontSize: 10, marginRight: 10 }}>
               Posted <strong>{elapsedString}</strong>
               </Typography>
-            <Typography style={{ display:'flex', fontSize: 10 }}>
+            <Typography style={{ display:'flex', fontSize: 10, alignItems: 'center' }}>
               <ChatBubbleOutlineIcon /><strong>{comments}</strong>
             </Typography>
           </div>
@@ -232,15 +239,12 @@ export default function MediaCard({ title, text, thumbnail, author, created, ups
           <Typography style={{ textAlign: 'center' }} gutterBottom variant="h5" component="div">
             {title}
           </Typography>
-          <Typography style={{ textAlign: 'center' }} gutterBottom variant="h5" component="div">
-            {post_hint}
-              </Typography>
               
           {post_snippet ? post_snippet : null}
             
   
             {id && text ?
-              (<Typography variant="body2" color="text.secondary" dangerouslySetInnerHTML={{ __html: `${cleanedText}` }} style={{ lineBreak: 'anywhere' }} />)
+              (<Typography variant="body2" color="text.secondary" dangerouslySetInnerHTML={{ __html: `${cleanedText}` }} style={{ lineBreak: 'anywhere', marginTop: 10 }} />)
               :
                 ("")}
   

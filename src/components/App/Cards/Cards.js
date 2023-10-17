@@ -16,8 +16,10 @@ const Cards = () => {
   let content = useSelector(selectContent);
   const searchTerm = useSelector((state) => state.searchTerm.searchTerm);
   const searched = useSelector((state) => state.content.searched);
+  const isLoading = useSelector((state) => state.content.isLoading);
   const sort = useSelector((state) => state.filter.filters.sorting);
   const author = useSelector((state) => state.filter.filters.authors);
+  const type = useSelector((state) => state.filter.filters.types);
   
 
   switch (sort) {
@@ -38,6 +40,10 @@ const Cards = () => {
   if (author !== '') {
     content = content.filter(item => item.data.author === author)
   }
+
+  if (type !== '') {
+    content = content.filter(item => item.data.post_hint === type)
+  }
   
   // Check if content is defined and it has the 'children' array
   if (!content) {
@@ -47,7 +53,7 @@ const Cards = () => {
   return (
     <div>
        <Filter />
-      <h2 style={{textAlign: 'center', marginTop: 10}}>{searched ? `Your search for ${searchTerm}:` : 'Popular Posts:'}</h2>
+      <h2 style={{textAlign: 'center', marginTop: 10}}>{searched && !isLoading ? `Your search:` : 'Popular Posts:'}</h2>
         {content.map((item) => (
           <Card
               cardType={'list'}
