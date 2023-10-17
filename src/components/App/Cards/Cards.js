@@ -14,7 +14,6 @@ import { selectContent } from './cardsSlice';
 
 const Cards = () => {
   let content = useSelector(selectContent);
-  const searchTerm = useSelector((state) => state.searchTerm.searchTerm);
   const searched = useSelector((state) => state.content.searched);
   const isLoading = useSelector((state) => state.content.isLoading);
   const sort = useSelector((state) => state.filter.filters.sorting);

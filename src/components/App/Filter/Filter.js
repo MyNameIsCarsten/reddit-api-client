@@ -18,7 +18,6 @@ import { changeSorting, authorFilter, typeFilter } from './filterSlice';
 
 const Filter = () => {
     const [selectedSort, setSelectedSort] = useState('Ascending');
-    let sort = '';
   const [authors, setAuthors] = useState([]);
   const [types, setTypes] = useState([]);
   const [selectedAuthor, setSelectedAuthor] = useState([]);

@@ -12,10 +12,8 @@ import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
 import { Link } from 'react-router-dom';
 import Button from '@mui/material/Button';
-import SendIcon from '@mui/icons-material/Send';
 
 // hook imports
-import { useState } from 'react'; // Import useState
 import { useDispatch, useSelector } from 'react-redux';
 
 // action imports

@@ -118,7 +118,7 @@ export default function MediaCard({ title, text, thumbnail, author, created, ups
       >
   
       <Card
-        sx={{ width: '80%' }}
+        sx={{ width: '80%', maxWidth: 700 }}
         style={{ display: "flex", alignItems: "center", backgroundColor: '#1A1A1B', color: '#C0C3C5' }}
       >
           
@@ -204,7 +204,7 @@ export default function MediaCard({ title, text, thumbnail, author, created, ups
       >
   
       <Card
-        sx={{ width: '80%' }}
+        sx={{ width: '80%', maxWidth: 700 }}
         style={{ display: "flex", alignItems: "center", backgroundColor: '#1A1A1B', color: '#C0C3C5' }}
       >
           
