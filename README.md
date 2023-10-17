@@ -6,8 +6,6 @@
     - [ x ] Technologies used
     - [ x ] Features
     - [ x ] Future work
-- [ ] Write unit tests for your components using Jest and Enzyme
-- [ ] Write end-to-end tests for your application
 - [ x ] Users can use the application on any device (desktop to mobile)
 - [ x ] Users can use the application on any modern browser
 - [ x ] Users can access your application at a URL
@@ -16,15 +14,14 @@
 - [ x ] Users can filter the data based on categories that are predefined
 - [ x ] Users are shown a detailed view (modal or new page/route) when they select an item
 - [ x ] Users are delighted with a cohesive design system
-- [ ] Get 90+ scores on Lighthouse
-- [ ] OPTIONAL: Get a custom domain name and use it for your application
-- [ ] OPTIONAL: Set up a CI/CD workflow to automatically deploy your application when the master branch in the repository changes
-- [ ] OPTIONAL: Make your application a progressive web app
+- [ x ] OPTIONAL: Set up a CI/CD workflow to automatically deploy your application when the main branch in the repository changes
 
 
 # Reddit Client
 
 Reddit Client is a React Redux-based web application that allows users to search for posts on Reddit. Users can input a search term, and the app will display relevant Reddit posts.
+
+![Dashboard](dashboard.png)
 
 ## Table of Contents
 
@@ -33,7 +30,7 @@ Reddit Client is a React Redux-based web application that allows users to search
 - [Technologies](#technologies)
 - [Features](#features)
 - [Contributing](#contributing)
-- [License](#license)
+- [Future Work](#future-work)
 
 ## Installation
 
@@ -150,4 +147,7 @@ Contributions are welcome! Here are the steps to contribute to this project:
 
    Once your pull request is approved, it will be merged into the main project.
 
-
+## Future Work
+- [ ] Write unit tests for your components using Jest and Enzyme
+- [ ] Write end-to-end tests for your application
+- [ ] Get 90+ scores on Lighthouse
