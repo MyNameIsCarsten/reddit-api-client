@@ -17,14 +17,12 @@ import { updatePost } from '../Cards/cardsSlice';
 const CardDetails = () => {
   const dispatch = useDispatch();
   const searchTerm = useSelector((state) => state.searchTerm.searchTerm); // Get the search term from Redux store
-  
   const isLoading = useSelector((state) => state.content.isLoading);
 
   // Grab Id from url
   let { id } = useParams();
   const posts = useSelector((state) => state.content.content); // Get the search term from Redux store
   const item = posts.filter(i => i.data.id === id)[0]
-  console.log('Item:', item)
 
 
   // Fetch data based on the search term

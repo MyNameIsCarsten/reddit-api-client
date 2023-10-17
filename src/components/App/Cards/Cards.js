@@ -10,12 +10,10 @@ import { useSelector } from 'react-redux';
 
 // Action import
 import { selectContent } from './cardsSlice';
-import { InsertEmoticon } from '@mui/icons-material';
 
 
 const Cards = () => {
   let content = useSelector(selectContent);
-  console.log(content)
   const searchTerm = useSelector((state) => state.searchTerm.searchTerm);
   const searched = useSelector((state) => state.content.searched);
   const sort = useSelector((state) => state.filter.filters.sorting);

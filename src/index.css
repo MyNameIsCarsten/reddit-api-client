@@ -1,6 +1,7 @@
 * {
     margin: 0;
     padding: 0;
+    font-family: 'IBM Plex Sans', sans-serif;
   }
 
 .MuiInputBase-root svg {
@@ -14,5 +15,4 @@ body {
 p {
   color: #C0C3C5 !important;
   line-break: auto !important;
-  margin-top: 25px !important;
 }

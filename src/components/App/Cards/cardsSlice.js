@@ -13,7 +13,6 @@ export const updatePost = createAsyncThunk(
     'post/updatePost',
     async (arg, thunkApi) => {
         let data = await fetch(`https://www.reddit.com/search.json?q=${arg}`);
-        console.log(`https://www.reddit.com/search.json?q=${arg}`)
         const json = await data.json();
         return json.data.children;
     }

@@ -12,37 +12,41 @@ import Typography from '@mui/material/Typography';
 import ArrowCircleUpIcon from '@mui/icons-material/ArrowCircleUp';
 import ArrowCircleDownIcon from '@mui/icons-material/ArrowCircleDown';
 import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
-import MarkdownTest from '../Cards/MarkdownTest';
+import Comments from '../Comments/Comments';
 
 // hook imports
-import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 // import actions
 import { loadPostData } from '../CardDetails/cardSlice';
+
+// import functions
+import { getTimeElapsedString } from '../../../utils/utilities';
 
 export default function MediaCard({ title, text, thumbnail, author, created, ups, down, id, subreddit, comments, media, preview, cardType, post_hint }) {
   const dispatch = useDispatch();
   let url = '';
   let post_snippet = null;
   let videoUrl = null;
-
+  try {
+    if ('&amp;' in title) {
+      while ('&amp;' in title) {
+      title = title.replace('&amp;', '&')
+      }
+    }
+  }
+  catch (error) {
+    // console.log(error)
+  }
   const post = useSelector((state) => state.post)
-  console.log('Post:', post.content.post)
-  console.log('Post Length:', Object.keys(post.content.post).length)
+ 
 
+  
   if (cardType !== 'list' && Object.keys(post.content.post).length > 0) {
     url = post.content.post[0].data.url
-    console.log('Url:', url)
     if (url.includes('reddit') && 'media_metadata' in post.content.post[0].data) {
       const firstKey = Object.keys(post.content.post[0].data.media_metadata)[3];
       url = post.content.post[0].data.media_metadata[firstKey].s.u.replace(/amp;/g, '')
-      console.log('Url:', url)
-      // const decodedURL = decodeURIComponent(url);
-      // Extract the desired part from the decoded URL
-      // const regex = /https:\/\/preview\.redd\.it\/[a-zA-Z0-9]+\.jpg\?width=\d+&crop=smart&auto=webp&s=[a-zA-Z0-9]+/;
-      // const match = decodedURL.match(regex);
-      // url = decodedURL
       post_hint = 'image'
     }
   }
@@ -50,41 +54,7 @@ export default function MediaCard({ title, text, thumbnail, author, created, ups
   if (cardType !== 'list' && post_hint === 'hosted:video'  && Object.keys(post.content.post).length > 0) {
     videoUrl = post.content.post[0].data.secure_media.reddit_video.fallback_url
   }
-
-  function getTimeElapsedString(timestamp) {
-    // Convert the timestamp to a Date object
-    const date = new Date(timestamp * 1000); // Multiply by 1000 to convert from seconds to milliseconds
-  
-    // Get the current date and time
-    const now = new Date();
-  
-    // Calculate the time difference in milliseconds
-    const timeDifference = now - date;
-  
-    // Calculate various time units
-    const seconds = Math.floor(timeDifference / 1000);
-    const minutes = Math.floor(seconds / 60);
-    const hours = Math.floor(minutes / 60);
-    const days = Math.floor(hours / 24);
-    const months = Math.floor(days / 30); // Roughly 30 days per month
-    const years = Math.floor(months / 12);
-  
-    // Create a human-readable string
-    if (years > 0) {
-      return `${years} year${years > 1 ? 's' : ''} ago`;
-    } else if (months > 0) {
-      return `${months} month${months > 1 ? 's' : ''} ago`;
-    } else if (days > 0) {
-      return `${days} day${days > 1 ? 's' : ''} ago`;
-    } else if (hours > 0) {
-      return `${hours} hour${hours > 1 ? 's' : ''} ago`;
-    } else if (minutes > 0) {
-      return `${minutes} minute${minutes > 1 ? 's' : ''} ago`;
-    } else {
-      return `${seconds} second${seconds > 1 ? 's' : ''} ago`;
-    }
-  }
-    
+   
   const elapsedString = getTimeElapsedString(created);
   const decodedText = new DOMParser().parseFromString(text, 'text/html').body.textContent;
   const cleanedText = decodedText.replace(/<!-- SC_OFF -->|<!-- SC_ON -->/g, '');
@@ -153,9 +123,8 @@ export default function MediaCard({ title, text, thumbnail, author, created, ups
         {ups}
         <Typography style={{ display: "flex" }}>
           <ArrowCircleDownIcon />
-  
         </Typography>
-          </div>
+      </div>
           
           
   
@@ -206,7 +175,7 @@ export default function MediaCard({ title, text, thumbnail, author, created, ups
   
         <CardActions>
           <Link to={`https://www.reddit.com/r/${subreddit}/comments/${id}`}>
-            <Button size="small">Post</Button>
+            <Button size="small">View Post on Reddit</Button>
           </Link>
         </CardActions> 
         </div>
@@ -235,12 +204,10 @@ export default function MediaCard({ title, text, thumbnail, author, created, ups
       <div style={{ minWidth: 80, display: 'flex', flexDirection: 'column', alignItems: 'center', backgroundColor: '#1A1A1B' }}>
         <Typography style={{ display: "flex" }}>
           <ArrowCircleUpIcon />
-   
         </Typography>
         {ups}
         <Typography style={{ display: "flex" }}>
           <ArrowCircleDownIcon />
-  
         </Typography>
           </div>
           
@@ -289,11 +256,15 @@ export default function MediaCard({ title, text, thumbnail, author, created, ups
   
         <CardActions>
           <Link to={`https://www.reddit.com/r/${subreddit}/comments/${id}`}>
-            <Button size="small">Post</Button>
+            <Button size="small">View Post on Reddit</Button>
           </Link>
         </CardActions> 
         </div>
-      </Card>
+        </Card>
+        <div>
+          <h3 style={{ textAlign: 'center', margin: 15 }}>Comments</h3>
+          <Comments />
+        </div>
     </div>
     );
   }
