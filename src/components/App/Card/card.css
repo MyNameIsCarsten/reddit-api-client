@@ -1,0 +1,13 @@
+
+
+@media only screen and (max-width: 480px) {
+    .cardsTop {
+        flex-direction: column;
+        gap: 5px;
+        align-items: center;
+    }
+
+    .MuiTypography-h5 {
+        font-size: 1rem;
+    }
+  }

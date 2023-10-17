@@ -9,12 +9,22 @@ export const loadContent = createAsyncThunk(
     }
 );
 
+export const updatePost = createAsyncThunk(
+    'post/updatePost',
+    async (arg, thunkApi) => {
+        let data = await fetch(`https://www.reddit.com/search.json?q=${arg}`);
+        const json = await data.json();
+        return json.data.children;
+    }
+);
+
 export const cardsSlice = createSlice({
     name: 'cards',
     initialState: {
         content: [],
         isLoading: false,
-        hasError: false
+        hasError: false,
+        searched: false
     },
     reducers: {},
     extraReducers: {
@@ -30,6 +40,20 @@ export const cardsSlice = createSlice({
             state.isLoading = false;
             state.hasError = false;
             state.content = action.payload
+        },
+        [updatePost.pending]: (state, action) => {
+            state.isLoading = true;
+            state.hasError = false;
+        },
+        [updatePost.rejected]: (state, action) => {
+            state.isLoading = false;
+            state.hasError = true;
+        },
+        [updatePost.fulfilled]: (state, action) => {
+            state.isLoading = false;
+            state.hasError = false;
+            state.content = action.payload
+            state.searched = true
         },
     }
 });

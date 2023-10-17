@@ -1,4 +1,7 @@
+// General imports
 import * as React from 'react';
+
+// Component imports
 import { styled, alpha } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -6,9 +9,19 @@ import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import InputBase from '@mui/material/InputBase';
-import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import { Link } from 'react-router-dom';
+import Button from '@mui/material/Button';
+
+// hook imports
+import { useDispatch, useSelector } from 'react-redux';
+
+// action imports
+import { addSearchTerm } from '../SearchBar/searchBarSlice';
+import { updatePost } from '../Cards/cardsSlice';
+
+// css imports
+import './searchBar.css';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -53,40 +66,60 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function SearchAppBar() {
+  const searchTerm = useSelector((state) => state.searchTerm.searchTerm); // Retrieve search term from Redux store
+  const dispatch = useDispatch(); // Get the dispatch function
+
+  // Event handler to update the search term as the user types
+  const handleSearchChange = (event) => {
+    dispatch(addSearchTerm(event.target.value));
+  };
+
+  const handleSearchSubmit = () => {
+    // Trigger the data fetching action based on the search term
+    dispatch(updatePost(searchTerm));
+  };
+  
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static" sx={{ backgroundColor: '#0D1117' }}>
         <Toolbar>
-          <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="open drawer"
-            sx={{ mr: 2 }}
-          >
-            <MenuIcon />
-                  </IconButton>
-
-               
+ 
           <Typography
             variant="h6"
             noWrap
             component="div"
-            sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
+            sx={{ flexGrow: 1, display: 'block', minWidth: 150 }}
                   >
                       <Link to='/'>Reddit Client</Link> 
             
-            </Typography>
+          </Typography>
                   
           <Search>
             <SearchIconWrapper>
-              <SearchIcon />
+              <IconButton
+                color="primary"
+                aria-label="search"
+                
+              >
+              </IconButton>
             </SearchIconWrapper>
             <StyledInputBase
-              placeholder="Search…"
+              placeholder="Search Term"
               inputProps={{ 'aria-label': 'search' }}
+              value={searchTerm} // Bind input value to the searchTerm state
+              onChange={handleSearchChange} // Add onChange event handler
             />
+            
           </Search>
+          <Button
+            variant="contained"
+            endIcon={<SearchIcon />}
+            style={{ margin: 10 }}
+            component="div"
+            onClick={handleSearchSubmit}
+          >
+              <span id='search'>Search</span>
+            </Button>
         </Toolbar>
       </AppBar>
     </Box>

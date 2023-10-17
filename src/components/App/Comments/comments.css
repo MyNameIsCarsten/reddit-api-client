@@ -1,0 +1,21 @@
+.comments{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+}
+
+.comment {
+    background-color: #1A1A1B;
+    width: 80%;
+    border-radius: 4px;
+    padding: 10px 0px;
+}
+
+.comment h4 {
+    margin: 30px;
+}
+
+.md {
+    margin: 30px;
+}
